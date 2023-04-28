@@ -19,7 +19,7 @@ const prisma = new PrismaClient();
 const insertAluno = async function(dadosDoAluno){
 
     //Script parainserir o ndados no DB
-   let sql = `nsert into tbl_aluno(
+   let sql = `insert into tbl_aluno(
                                     nome,
                                     cpf,
                                     rg,
@@ -27,11 +27,11 @@ const insertAluno = async function(dadosDoAluno){
                                     email
                                     )
                                     values
-                                    ('${dadosAluno.nome}',
-                                     '${dadosAluno.cpf}',
-                                     '${dadosAluno.rg}',
-                                     '${dadosAluno.data_nacimento}',
-                                     '${dadosAluno.email}',
+                                    ('${dadosDoAluno.nome}',
+                                     '${dadosDoAluno.cpf}',
+                                     '${dadosDoAluno.rg}',
+                                     '${dadosDoAluno.data_nacimento}',
+                                     '${dadosDoAluno.email}'
                                      )`;
 
 

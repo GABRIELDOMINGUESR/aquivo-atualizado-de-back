@@ -10,23 +10,24 @@ console.log(alunoDAO);
 
 
 //função para receber os dados do APP e enviar para a model 
-const inserirAluno =  async function(dadosAlono) {
+const inserirAluno =  async function(dadosAluno) {
 
     //import do arquivo global do projetio
     let message = require('./modulo/config.js');
 
     
         //Validação dos dados
-    if( dadosAlono.nome             == ''  || dadosAlono.nome           == undefined || dadosAlono.nome.length           > 100 || 
-        dadosAlono.cpf              == ''  || dadosAlono.cpf            == undefined || dadosAlono.cpf.length            > 18  ||
-        dadosAlono.rg               == ''  || dadosAlono.rg             == undefined || dadosAlono.rg.length             > 15  ||
-        dadosAlono.data_nacimento   == ''  || dadosAlono.data_nacimento == undefined || dadosAlono.data_nacimento.length > 10  ||
-        dadosAlono.email            == ''  || dadosAlono.email          == undefined || dadosAlono.email.length          > 250 
+    if( dadosAluno.nome             == ''  || dadosAluno.nome           == undefined || dadosAluno.nome.length           > 100 || 
+        dadosAluno.cpf              == ''  || dadosAluno.cpf            == undefined || dadosAluno.cpf.length            > 18  ||
+        dadosAluno.rg               == ''  || dadosAluno.rg             == undefined || dadosAluno.rg.length             > 15  ||
+        dadosAluno.data_nacimento   == ''  || dadosAluno.data_nacimento == undefined || dadosAluno.data_nacimento.length > 10  ||
+        dadosAluno.email            == ''  || dadosAluno.email          == undefined || dadosAluno.email.length          > 250 
     ){
        return message.ERROR_REQUIRED_DATA;
     }else{
         //Envia os dads para a model a serem inseridos no DB
-       let status = await alunoDAO.inserirAluno(dadosAlono);
+       let status = await  alunoDAO.insertAluno(dadosAluno);
+       
         if (status) 
             return message.CREATED_ITEM
         else
