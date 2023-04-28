@@ -5,8 +5,47 @@
  * versão: 1.0
  ********************************************************************/
 
+
+//import da biblioteca do prisma client (responsavel por manipular dados DB)
+const {PrismaClient} = require('@prisma/client')
+ 
+//instancia da classe do prisma client
+const prisma = new PrismaClient();
+
+
+
+
 //Inserir um novo registro no banco de dados 
-const insertAluno = function(dadosDoAluno){
+const insertAluno = async function(dadosDoAluno){
+
+    //Script parainserir o ndados no DB
+   let sql = `nsert into tbl_aluno(
+                                    nome,
+                                    cpf,
+                                    rg,
+                                    data_nacimento,
+                                    email
+                                    )
+                                    values
+                                    ('${dadosAluno.nome}',
+                                     '${dadosAluno.cpf}',
+                                     '${dadosAluno.rg}',
+                                     '${dadosAluno.data_nacimento}',
+                                     '${dadosAluno.email}',
+                                     )`;
+
+
+console.log(sql);
+
+
+//Executa o xcript SQL no DB e cebemos o retorno se deu certo ou não 
+let result = await prisma.$executeRawUnsafe(sql);
+
+if(result)
+    return true
+else
+    return false;
+
 
 }
 
@@ -21,12 +60,32 @@ const deleteAluno = function(id){
 }
 
 //Retorna todos os registros no banco de dados 
-const selectAllAluno = function(){
+const selectAllAluno = async function(){
+ 
+ //variavel com o script para executar no DB
+ let sql = 'select * from tbl_aluno';
+
+ //Executa no DB o scriptSQL
+ //$queryRawUnsafe() é utilizado quando o scriptSQL está em uma variavel 
+ //$queryRaw() é utilizado quando passar o script direto no metodo (Ex: $queryRaw('select * from tbl_aluno'))
+ let result = await prisma.$queryRawUnsafe(sql);
+
+ // Valida se o DB retornou algum registro
+ if(result.length > 0)
+    return result;
+else 
+    return false;
 
 }
+ console.log(selectAllAluno);
 
 //Retorna um registro do banco de dados filtrado pelo ID
 const selectByIdAluno = function(id){
 
+}
+
+module.exports = {
+    selectAllAluno,
+    insertAluno
 }
 
